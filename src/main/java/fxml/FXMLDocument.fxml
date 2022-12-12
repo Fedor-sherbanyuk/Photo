@@ -1,135 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane id="AnchorPane" prefHeight="773.0" prefWidth="1241.0" stylesheets="@../sample/styles.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.FXMLDocumentController">
+    <children>
+        <StackPane fx:id="root" layoutX="3.0" layoutY="108.0" prefHeight="635.0" prefWidth="1185.0"
+                   style="-fx-padding: 4px;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="3.0"
+                   AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="108.0">
+            <children>
+                <ImageView fx:id="myImageView" fitHeight="700.0" fitWidth="1226.0" nodeOrientation="INHERIT"
+                           pickOnBounds="true" preserveRatio="true">
+                    <StackPane.margin>
+                        <Insets/>
+                    </StackPane.margin>
+                    <image>
+                        <Image url="@../sample/table.png"/>
+                    </image>
+                </ImageView>
+            </children>
+            <padding>
+                <Insets bottom="5.0" top="5.0"/>
+            </padding>
+        </StackPane>
+        <Pane prefHeight="101.0" prefWidth="1265.0" style="-fx-border-style: solid;" styleClass="pane"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Button fx:id="buttonLoadImage" layoutX="307.0" layoutY="6.0" mnemonicParsing="false"
+                        onAction="#LoadImage" prefHeight="33.0" prefWidth="140.0" text="Загрузить графику">
+                    <font>
+                        <Font name="Calibri Light" size="18.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="buttonSaveImage" layoutX="307.0" layoutY="51.0" mnemonicParsing="false"
+                        onAction="#SaveImage" prefHeight="33.0" prefWidth="140.0" text="Сохраните графику">
+                    <font>
+                        <Font name="Calibri Light" size="18.0"/>
+                    </font>
+                </Button>
+                <Separator layoutX="453.0" layoutY="4.0" orientation="VERTICAL" prefHeight="94.0" prefWidth="5.0"/>
+                <Label layoutX="480.0" layoutY="36.0" prefHeight="25.0" prefWidth="94.0" text="Яркость">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <Slider fx:id="bright" blockIncrement="0.01" layoutX="544.0" layoutY="41.0" max="1.0" min="-1.0"
+                        prefHeight="14.0" prefWidth="94.0"/>
+                <Slider fx:id="saturation" blockIncrement="0.01" layoutX="544.0" layoutY="69.0" max="1.0" min="-1.0"
+                        prefHeight="14.0" prefWidth="94.0"/>
+                <Label layoutX="480.0" layoutY="64.0" prefHeight="25.0" prefWidth="94.0" text="Насыщенность">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="459.0" layoutY="1.0" style="-fx-border-color: red; -fx-background-color: wheat;"
+                       text=" Базовый ">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Slider fx:id="ottenok" blockIncrement="0.01" layoutX="712.0" layoutY="69.0" max="1.0" min="-1.0"
+                        prefHeight="14.0" prefWidth="94.0"/>
+                <Label layoutX="648.0" layoutY="64.0" prefHeight="25.0" prefWidth="94.0" text="Oттенок">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="648.0" layoutY="38.0" prefHeight="25.0" prefWidth="94.0" text="Kontrast">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <Slider fx:id="contrast" blockIncrement="0.01" layoutX="712.0" layoutY="43.0" max="1.0" min="-1.0"
+                        prefHeight="14.0" prefWidth="94.0"/>
+                <CheckBox fx:id="pazmutue" layoutX="574.0" layoutY="15.0" mnemonicParsing="false" text="Размытие"/>
+                <CheckBox fx:id="tenu" layoutX="669.0" layoutY="15.0" mnemonicParsing="false" text="Оттенок tenu"/>
+                <Separator layoutX="806.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="108.0" prefWidth="6.0"/>
+                <Label layoutX="812.0" layoutY="1.0" style="-fx-border-color: red; -fx-background-color: wheat;"
+                       text="Передний план">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="936.0" layoutY="11.0" text="Размытость">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Label>
+                <Slider fx:id="motionRadius" blockIncrement="1.0" layoutX="1133.0" layoutY="14.0" majorTickUnit="250.0"
+                        prefHeight="14.0" prefWidth="94.0"/>
+                <Slider fx:id="motionAngle" blockIncrement="4.0" layoutX="1033.0" layoutY="13.0" max="360.0"
+                        prefHeight="14.0" prefWidth="94.0"/>
+                <Label layoutX="1073.0" layoutY="1.0" text="Угол">
+                    <font>
+                        <Font size="9.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="1156.0" layoutY="1.0" text="Поверхность">
+                    <font>
+                        <Font size="9.0"/>
+                    </font>
+                </Label>
+                <Slider fx:id="sovetFotoEffect" blockIncrement="0.01" layoutX="864.0" layoutY="41.0" max="1.0"
+                        prefHeight="14.0" prefWidth="94.0"/>
+                <Label layoutX="824.0" layoutY="39.0" text="SovetFotoEffect">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="967.0" layoutY="39.0" text="Вспышка">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Label>
+                <Slider fx:id="svetitca" blockIncrement="0.01" layoutX="1007.0" layoutY="41.0" max="1.0"
+                        prefHeight="14.0" prefWidth="94.0"/>
+                <Slider fx:id="pazmutueGauss" blockIncrement="1.0" layoutX="1148.0" layoutY="41.0" prefHeight="14.0"
+                        prefWidth="94.0"/>
+                <Label layoutX="1108.0" layoutY="39.0" text="РазмытиеГаусс">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="824.0" layoutY="67.0" text="Освещение">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Label>
 
-<AnchorPane id="AnchorPane" prefHeight="773.0" prefWidth="1241.0" stylesheets="@../sample/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.FXMLDocumentController">
-   <children>
-      <StackPane fx:id="root" layoutX="3.0" layoutY="108.0" prefHeight="635.0" prefWidth="1185.0" style="-fx-padding: 4px;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="108.0">
-         <children>
-            <ImageView fx:id="myImageView" fitHeight="700.0" fitWidth="1226.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-               <StackPane.margin>
-                  <Insets />
-               </StackPane.margin>
-               <image>
-                  <Image url="@../sample/table.png" />
-               </image>
-            </ImageView>
-         </children>
-         <padding>
-            <Insets bottom="5.0" top="5.0" />
-         </padding>
-      </StackPane>
-      <Pane prefHeight="101.0" prefWidth="1265.0" style="-fx-border-style: solid;" styleClass="pane" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button fx:id="buttonLoadImage" layoutX="307.0" layoutY="6.0" mnemonicParsing="false" onAction="#LoadImage" prefHeight="33.0" prefWidth="140.0" text="Загрузить графику">
-               <font>
-                  <Font name="Calibri Light" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonSaveImage" layoutX="307.0" layoutY="51.0" mnemonicParsing="false" onAction="#SaveImage" prefHeight="33.0" prefWidth="140.0" text="Сохраните графику">
-               <font>
-                  <Font name="Calibri Light" size="18.0" />
-               </font>
-            </Button>
-            <Separator layoutX="453.0" layoutY="4.0" orientation="VERTICAL" prefHeight="94.0" prefWidth="5.0" />
-            <Label layoutX="480.0" layoutY="36.0" prefHeight="25.0" prefWidth="94.0" text="Яркость">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Slider fx:id="bright" blockIncrement="0.01" layoutX="544.0" layoutY="41.0" max="1.0" min="-1.0" prefHeight="14.0" prefWidth="94.0" />
-            <Slider fx:id="saturation" blockIncrement="0.01" layoutX="544.0" layoutY="69.0" max="1.0" min="-1.0" prefHeight="14.0" prefWidth="94.0" />
-            <Label layoutX="480.0" layoutY="64.0" prefHeight="25.0" prefWidth="94.0" text="Насыщенность">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="459.0" layoutY="1.0" style="-fx-border-color: red; -fx-background-color: wheat;" text=" Базовый ">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Slider fx:id="ottenok" blockIncrement="0.01" layoutX="712.0" layoutY="69.0" max="1.0" min="-1.0" prefHeight="14.0" prefWidth="94.0" />
-            <Label layoutX="648.0" layoutY="64.0" prefHeight="25.0" prefWidth="94.0" text="Oттенок">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="648.0" layoutY="38.0" prefHeight="25.0" prefWidth="94.0" text="Kontrast">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Slider fx:id="contrast" blockIncrement="0.01" layoutX="712.0" layoutY="43.0" max="1.0" min="-1.0" prefHeight="14.0" prefWidth="94.0" />
-            <CheckBox fx:id="pazmutue" layoutX="574.0" layoutY="15.0" mnemonicParsing="false" text="Размытие" />
-            <CheckBox fx:id="tenu" layoutX="669.0" layoutY="15.0" mnemonicParsing="false" text="Оттенок tenu" />
-            <Separator layoutX="806.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="108.0" prefWidth="6.0" />
-            <Label layoutX="812.0" layoutY="1.0" style="-fx-border-color: red; -fx-background-color: wheat;" text="Передний план">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="936.0" layoutY="11.0" text="Размытость">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <Slider fx:id="motionRadius" blockIncrement="1.0" layoutX="1133.0" layoutY="14.0" majorTickUnit="250.0" prefHeight="14.0" prefWidth="94.0" />
-            <Slider fx:id="motionAngle" blockIncrement="4.0" layoutX="1033.0" layoutY="13.0" max="360.0" prefHeight="14.0" prefWidth="94.0" />
-            <Label layoutX="1073.0" layoutY="1.0" text="Угол">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Label>
-            <Label layoutX="1156.0" layoutY="1.0" text="Поверхность">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Label>
-            <Slider fx:id="sovetFotoEffect" blockIncrement="0.01" layoutX="864.0" layoutY="41.0" max="1.0" prefHeight="14.0" prefWidth="94.0" />
-            <Label layoutX="824.0" layoutY="39.0" text="SovetFotoEffect">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="967.0" layoutY="39.0" text="Вспышка">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <Slider fx:id="svetitca" blockIncrement="0.01" layoutX="1007.0" layoutY="41.0" max="1.0" prefHeight="14.0" prefWidth="94.0" />
-            <Slider fx:id="pazmutueGauss" blockIncrement="1.0" layoutX="1148.0" layoutY="41.0" prefHeight="14.0" prefWidth="94.0" />
-            <Label layoutX="1108.0" layoutY="39.0" text="РазмытиеГаусс">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="824.0" layoutY="67.0" text="Освещение">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <Slider fx:id="pazmutueBloom" blockIncrement="0.01" layoutX="911.0" layoutY="70.0" max="1.0" prefHeight="14.0" prefWidth="94.0" rotate="180.0" value="1.0" />
-            <CheckBox fx:id="innshadow" layoutX="1033.0" layoutY="69.0" mnemonicParsing="false" text="Внутренняя тень" />
-            <CheckBox fx:id="light" layoutX="1159.0" layoutY="68.0" mnemonicParsing="false" text="HDR" />
-            <Button fx:id="resetBtn" layoutX="742.0" layoutY="11.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
-         </children>
-      </Pane>
-      <Pane prefHeight="101.0" prefWidth="298.0" style="-fx-border-color: red; -fx-border-style: dashed;" styleClass="logoBg">
-         <children>
-            <ImageView fitHeight="101.0" fitWidth="294.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../sample/squirrel.jpg" />
-               </image></ImageView>
-         </children>
-      </Pane>
-   </children>
+                <Slider fx:id="pazmutueBloom" blockIncrement="0.01" layoutX="911.0" layoutY="70.0" max="1.0"
+                        prefHeight="14.0" prefWidth="94.0" rotate="180.0" value="1.0"/>
+                <CheckBox fx:id="innshadow" layoutX="1033.0" layoutY="69.0" mnemonicParsing="false"
+                          text="Внутренняя тень"/>
+                <CheckBox fx:id="light" layoutX="1159.0" layoutY="68.0" mnemonicParsing="false" text="HDR"/>
+                <Button fx:id="resetBtn" layoutX="742.0" layoutY="11.0" mnemonicParsing="false" onAction="#reset"
+                        text="Reset"/>
+            </children>
+        </Pane>
+        <Pane prefHeight="101.0" prefWidth="298.0" style="-fx-border-color: red; -fx-border-style: dashed;"
+              styleClass="logoBg">
+            <children>
+                <Button fx:id="videoButtonBtn" layoutX="4.0" layoutY="4.0" mnemonicParsing="false"
+                        onAction="#videoButton" prefHeight="33.0" prefWidth="140.0" text="VideoButton"/>
+                <Button fx:id="circleFindButtonBtn" layoutX="4.0" layoutY="40.0" mnemonicParsing="false"
+                        onAction="#circleFindButton" prefHeight="33.0" prefWidth="140.0" text="CircleFindButton"/>
+                <ImageView fitHeight="101.0" fitWidth="294.0" layoutX="150.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../sample/squirrel.jpg"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>
