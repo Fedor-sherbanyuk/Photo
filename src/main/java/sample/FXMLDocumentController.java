@@ -76,6 +76,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button circleFindButton = new Button();
     @FXML
+    private Button triangleFindButton = new Button();
+    @FXML
     private Button infobtn = new Button();
     @FXML
     private ImageView myImageView = new ImageView();
@@ -96,6 +98,83 @@ public class FXMLDocumentController implements Initializable {
         motionAngle.setValue(0);
         innshadow.setSelected(false);
         light.setSelected(false);
+    }
+
+    @FXML
+    private void triangleFindButton() {
+
+        // Найти треугольник начало
+        JFrame window = new JFrame();
+        JLabel screen = new JLabel();
+        ImageIcon imageIcon;
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setVisible(true);
+
+        Image image = Images.getImage().getImage();
+        Mat img = imageToMat(image);
+        Mat destination = new Mat(img.rows(), img.cols(), img.type());
+        //Преобразует изображение из одного цветового пространства в другое,
+        // где исходное изображение хранится в двух плоскостях.
+        // На данный момент эта функция поддерживает только преобразование YUV420 в RGB.
+        Imgproc.cvtColor(img, destination, Imgproc.COLOR_BGR2GRAY);
+
+        //Выполнить автоматическое выравнивание гистограммы для 8-битного изображения в
+        // градациях серого можно с помощью метода equalizeHist()
+        Imgproc.equalizeHist(destination, destination);
+        //Размытие по Гауссу реализуется с помощью статического метода GaussianBlur() из класса Imgproc
+        // В первом параметре указывается исходное изображение (глубина CV_8U, CV_16U, CV_16S, CV_32F или CV_64F),
+        // а во втором — матрица, в которую будет записан результат операции. В параметре ksize указываются размеры ядра фильтра.
+        // Ширина и высота ядра могут различаться, но оба они должны быть положительными и нечетными.
+        Imgproc.GaussianBlur(destination, destination, new Size(5, 5), Core.BORDER_DEFAULT);
+
+        //Выделить границы объектов на изображении позволяет статический метод Canny() из класса Imgproc
+        Imgproc.Canny(destination, destination, 50, 100);
+        //Кратко Отбрасывает четные строки и столбцы  Элементы исходного изображения должны состоять из одного канала
+        // и иметь глубину цвета 8 битов или 32 бита (вещественное число).
+        // Параметр thresh задает пороговое  значение, а параметр maxval — максимальное значение
+        // (используется только в алгоритмах THRESH_BINARY и THRESH_BINARY_INV).
+        // В параметре type можно указать следующие алгоритмы (константы из класса Imgproc):
+        //THRESH_BINARY — если src(x, y) больше thresh, то dst(x, y) будет иметь значение maxval, в противном случае 0.
+        Imgproc.threshold(destination, destination,0,255, Imgproc.THRESH_BINARY);
+
+        Mat edges = new Mat();
+        //Выделить границы объектов на изображении позволяет статический метод Canny() из класса Imgproc
+        Imgproc.Canny(destination, edges, 80, 200);
+        // Создаем копию
+        Mat edgesCopy = edges.clone();
+        ArrayList<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+        //Находит контуры в бинарном изображении.
+        // Функция извлекает контуры из бинарного изображения с помощью алгоритма CITE: Suzuki85.
+        // Контуры — полезный инструмент для анализа формы, обнаружения и распознавания объектов
+        Imgproc.findContours(edgesCopy, contours, new Mat(),Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        for (int i = 0, j = contours.size(); i < j; i++) {
+            System.out.println(Imgproc.contourArea(contours.get(i)));
+            Rect r = Imgproc.boundingRect(contours.get(i));
+            System.out.println("boundingRect = " + r);
+            double len = Imgproc.arcLength(new MatOfPoint2f(contours.get(i).toArray()), true);
+            System.out.println("arcLength = " + len);
+            //Прямоугольник
+
+            Imgproc.putText(img,"Triangle",(new Point(r.x, r.y)),Imgproc.FONT_HERSHEY_COMPLEX,0.5,new Scalar(0,255,0),0,0);
+//                    new Point(r.x + r.width - 1, r.y + r.height - 1),
+//                    CvUtils.COLOR_BLACK);
+        }
+        Mat lines = new Mat();
+        Imgproc.HoughLinesP(edges, lines, 1, Math.toRadians(2), 20, 30, 0);
+        Mat result = new Mat(img.size(), CvType.CV_8UC3, new Scalar(0,255,0));
+        for (int i = 0, r = lines.rows(); i < r; i++) {
+            for (int j = 0, c = lines.cols(); j < c; j++) {
+                double[] line = lines.get(i, j);
+                Imgproc.line(result, new Point(line[0], line[1]),
+                        new Point(line[2], line[3]), new Scalar(255,0,0));
+            } }
+        MatOfByte matOfByte = new MatOfByte();
+
+        Imgcodecs.imencode(".png", img, matOfByte);
+        imageIcon = new ImageIcon(matOfByte.toArray());
+        screen.setIcon(imageIcon);
+        window.getContentPane().add(screen);
+        window.pack();
     }
 
     public static Mat imageToMat(Image image) {
