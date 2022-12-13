@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import nu.pattern.OpenCV;
+import org.opencv.core.Core;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +21,9 @@ import java.net.URL;
 
 public class Main extends Application {
     public static void main(String[] args) {
+//        OpenCV.loadShared();
+        OpenCV.loadLocally();
+        System.out.println("Verion: " + Core.VERSION);
         launch(args);
     }
 

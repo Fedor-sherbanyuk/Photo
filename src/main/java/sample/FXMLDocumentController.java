@@ -9,6 +9,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import org.opencv.core.*;
@@ -24,12 +26,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.util.*;
 
 public class FXMLDocumentController implements Initializable {
     static {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        System.out.println("Verion: " + Core.VERSION);
+
     }
 
     private ImageEdit Images = new ImageEdit();
@@ -96,6 +98,20 @@ public class FXMLDocumentController implements Initializable {
         light.setSelected(false);
     }
 
+    public static Mat imageToMat(Image image) {
+        int width = (int) image.getWidth();
+        int height = (int) image.getHeight();
+        byte[] buffer = new byte[width * height * 4];
+
+        PixelReader reader = image.getPixelReader();
+        WritablePixelFormat<ByteBuffer> format = WritablePixelFormat.getByteBgraInstance();
+        reader.getPixels(0, 0, width, height, format, buffer, 0, width * 4);
+
+        Mat mat = new Mat(height, width, CvType.CV_8UC4);
+        mat.put(0, 0, buffer);
+        return mat;
+    }
+
     @FXML
     private void circleFindButton() {
         // Найти круг начало
@@ -104,56 +120,36 @@ public class FXMLDocumentController implements Initializable {
         ImageIcon imageIcon;
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
-
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-        File file = fileChooser.showOpenDialog(null);
-
         try {
-            BufferedImage bufferedImage = ImageIO.read(file);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            myImageView.setImage(image);
-            reset();
-            Images.setImage(myImageView);
-
-        } catch (IOException ex) {
-
-        }
-
-        Image image=Images.getImage().getImage();
-        Mat img = Imgcodecs.imread(file.getAbsolutePath());
-
-        MatOfByte matOfByte = new MatOfByte();
-        if (img.empty()) {
-            System.out.println("Не удалось загрузить изображение");
-            return;
-        }
-
-        Mat imgGray = new Mat();
-        Imgproc.cvtColor(img, imgGray, Imgproc.COLOR_BGR2GRAY);
-
-        Mat circles = new Mat();
-        Imgproc.HoughCircles(imgGray, circles, Imgproc.HOUGH_GRADIENT, 2, imgGray.rows() / 4);
-        Mat result = new Mat(img.size(), CvType.CV_8UC3, new Scalar(1.0f, 1.0f, 1.0f));
-        for (
-                int i = 0, r = circles.rows();
-                i < r; i++) {
-            for (int j = 0, c = circles.cols(); j < c; j++) {
-                double[] circle = circles.get(i, j);
-                Imgproc.circle(result, new Point(circle[0], circle[1]), (int) circle[2], new Scalar(255, 0, 0));
+            Image image = Images.getImage().getImage();
+            Mat img = imageToMat(image);
+            MatOfByte matOfByte = new MatOfByte();
+            if (img.empty()) {
+                System.out.println("Не удалось загрузить изображение");
+                return;
             }
+            Mat imgGray = new Mat();
+            Imgproc.cvtColor(img, imgGray, Imgproc.COLOR_BGR2GRAY);
+
+            Mat circles = new Mat();
+            Imgproc.HoughCircles(imgGray, circles, Imgproc.HOUGH_GRADIENT, 2, imgGray.rows() / 4);
+            Mat result = new Mat(img.size(), CvType.CV_8UC3, new Scalar(1.0f, 1.0f, 1.0f));
+            for (
+                    int i = 0, r = circles.rows();
+                    i < r; i++) {
+                for (int j = 0, c = circles.cols(); j < c; j++) {
+                    double[] circle = circles.get(i, j);
+                    Imgproc.circle(result, new Point(circle[0], circle[1]), (int) circle[2], new Scalar(255, 0, 0));
+                }
+            }
+            Imgcodecs.imencode(".png", result, matOfByte);
+            imageIcon = new ImageIcon(matOfByte.toArray());
+            screen.setIcon(imageIcon);
+            window.getContentPane().add(screen);
+            window.pack();
+        } catch (NullPointerException e) {
+            System.out.println("Надо загрузить изображение, а Вы точно загрузили картинку?");
         }
-        Imgcodecs.imencode(".png", result, matOfByte);
-        imageIcon = new
-
-                ImageIcon(matOfByte.toArray());
-        screen.setIcon(imageIcon);
-        window.getContentPane().
-
-                add(screen);
-        window.pack();
         //Найти круг конец
     }
 
