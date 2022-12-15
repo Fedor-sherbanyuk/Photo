@@ -62,6 +62,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button triangleFindButton = new Button();
     @FXML
+    private Button triangleFindButton2 = new Button();
+    @FXML
     private Button infobtn = new Button();
     @FXML
     private Button videoButton = new Button();
@@ -96,6 +98,17 @@ public class FXMLDocumentController implements Initializable {
         try {
             Image image = Images.getImage().getImage();
             ImageView imageView = new TriangleFind().triangleFindInImage(image);
+            myImageView.setImage(imageView.getImage());
+        } catch (NullPointerException | IOException e) {
+            System.out.println("Надо загрузить изображение, а Вы точно загрузили картинку?");
+        }
+    }
+
+    @FXML
+    private void triangleFindButtonSecond(ActionEvent event) {
+        try {
+            Image image = Images.getImage().getImage();
+            ImageView imageView = new TriangleFindSecond().triangleFindInImageSecond(image);
             myImageView.setImage(imageView.getImage());
         } catch (NullPointerException | IOException e) {
             System.out.println("Надо загрузить изображение, а Вы точно загрузили картинку?");
