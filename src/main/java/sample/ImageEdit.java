@@ -28,7 +28,6 @@ public class ImageEdit {
     public void setImage(ImageView myImage) {
         this.Image = myImage;
         Init();
-
     }
 
     public void DropShadow(CheckBox myCheckbox) {
