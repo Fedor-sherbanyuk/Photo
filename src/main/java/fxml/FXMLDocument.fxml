@@ -153,6 +153,10 @@
                         onAction="#triangleFindButton" prefHeight="10.0" prefWidth="100.0" text="TriangleFind"/>
                 <Button fx:id="triangleFindButton2Btn" layoutX="4.0" layoutY="100.0" mnemonicParsing="false"
                         onAction="#triangleFindButtonSecond" prefHeight="10.0" prefWidth="100.0" text="TriangleFind2"/>
+                <Button fx:id="triangleFindButton3Btn" layoutX="4.0" layoutY="125.0" mnemonicParsing="false"
+                        onAction="#triangleFindButtonThree" prefHeight="10.0" prefWidth="100.0" text="TriangleFind3"/>
+                <Button fx:id="polygonCircleTriangleBtn" layoutX="4.0" layoutY="150.0" mnemonicParsing="false"
+                        onAction="#polygonCircleTriangle" prefHeight="10.0" prefWidth="100.0" text="PolygonCircleTriangleFind"/>
                 <ImageView fitHeight="101.0" fitWidth="294.0" layoutX="150.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../sample/squirrel.jpg"/>
