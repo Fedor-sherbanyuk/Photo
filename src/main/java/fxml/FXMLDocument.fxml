@@ -157,7 +157,9 @@
                         onAction="#triangleFindButtonThree" prefHeight="10.0" prefWidth="100.0" text="TriangleFind3"/>
                 <Button fx:id="polygonCircleTriangleBtn" layoutX="4.0" layoutY="150.0" mnemonicParsing="false"
                         onAction="#polygonCircleTriangle" prefHeight="10.0" prefWidth="100.0" text="PolygonCircleTriangleFind"/>
-                <ImageView fitHeight="101.0" fitWidth="294.0" layoutX="150.0" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="polygonFindBtn" layoutX="4.0" layoutY="150.0" mnemonicParsing="false"
+                        onAction="#polygonFindButton" prefHeight="10.0" prefWidth="100.0" text="PolygonFind"/>
+                <ImageView fitHeight="101.0" fitWidth="294.0" layoutX="175.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../sample/squirrel.jpg"/>
                     </image>
