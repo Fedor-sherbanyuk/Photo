@@ -10,13 +10,25 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 
 import javax.imageio.ImageIO;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
 public class FXMLDocumentController implements Initializable {
@@ -73,6 +85,8 @@ public class FXMLDocumentController implements Initializable {
     private Button infobtn = new Button();
     @FXML
     private Button videoButton = new Button();
+    @FXML
+    private Button htmlLoadButton = new Button();
     @FXML
     private ImageView myImageView = new ImageView();
 
@@ -131,6 +145,7 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("Надо загрузить изображение, а Вы точно загрузили картинку?");
         }
     }
+
     @FXML
     private void triangleFindButtonThree(ActionEvent event) {
         try {
@@ -164,7 +179,51 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    @FXML
+    private void htmlLoadButton(ActionEvent event) throws URISyntaxException, IOException {
 
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            URL url = new File("src/main/java/sample/index.html").toURI().toURL();
+            Desktop.getDesktop().browse(url.toURI());
+        }
+//        TrustManager[] trustAllCerts = new TrustManager[] {
+//                new X509TrustManager() {
+//                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+//                        return null;
+//                    }
+//                    public void checkClientTrusted(
+//                            java.security.cert.X509Certificate[] certs, String authType) {
+//                    }
+//                    public void checkServerTrusted(
+//                            java.security.cert.X509Certificate[] certs, String authType) {
+//                    }
+//                }
+//        };
+//
+//        try {
+//            SSLContext sc = SSLContext.getInstance("SSL");
+//            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+//            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+//
+//        } catch (NoSuchAlgorithmException | KeyManagementException | UnsupportedOperationException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        try {
+//            URL url = new URL("src/main/java/sample/index.html");
+//        } catch (MalformedURLException e) {
+//        }
+
+        //-Dhttps.protocols=TLSv1.1,TLSv1.2
+//        new WebEngine().load("src/main/java/sample/index.html");// Все не могу открыть html в окне fxml
+        //https://ru.stackoverflow.com/questions/488763/%D0%9A%D0%B0%D0%BA-%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8C-%D1%81%D0%B0%D0%B9%D1%82-%D0%B2-webview-javafx-%D0%B7%D0%B0%D0%BF%D1%80%D0%B0%D1%88%D0%B8%D0%B2%D0%B0%D1%8E%D1%89%D0%B8%D0%B9-pfx-%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82
+    }
+
+
+//    @Override
+//    public String getName() {
+//        throw new UnsupportedOperationException("not implemented");
+//    }
     @FXML
     private void LoadImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();

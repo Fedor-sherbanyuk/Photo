@@ -159,6 +159,8 @@
                         onAction="#polygonCircleTriangle" prefHeight="10.0" prefWidth="100.0" text="PolygonCircleTriangleFind"/>
                 <Button fx:id="polygonFindBtn" layoutX="4.0" layoutY="150.0" mnemonicParsing="false"
                         onAction="#polygonFindButton" prefHeight="10.0" prefWidth="100.0" text="PolygonFind"/>
+                <Button fx:id="htmlLoadButtonBtn" layoutX="105.0" layoutY="150.0" mnemonicParsing="false"
+                        onAction="#htmlLoadButton" prefHeight="10.0" prefWidth="100.0" text="Html-Load"/>
                 <ImageView fitHeight="101.0" fitWidth="294.0" layoutX="175.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../sample/squirrel.jpg"/>

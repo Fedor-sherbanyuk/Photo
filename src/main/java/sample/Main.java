@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Main extends Application {
+
     public static void main(String[] args) {
 //        OpenCV.loadShared(); Если до 11 Java
         OpenCV.loadLocally();
